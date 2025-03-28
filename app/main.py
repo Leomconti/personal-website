@@ -12,4 +12,4 @@ app.mount("/assets", StaticFiles(directory="assets"), name="assets")
 
 @app.get("/")
 async def read_index():
-    return FileResponse("static/index.html")
+    return FileResponse("static/with_animation.html")
