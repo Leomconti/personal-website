@@ -26,6 +26,12 @@ class ThemeSwitcher {
       existingSelector.remove();
     }
 
+    // Find the nav element
+    const nav = document.querySelector(".nav");
+    if (!nav) {
+      return; // No nav found, can't create selector
+    }
+
     // Create theme selector container
     const selectorContainer = document.createElement("div");
     selectorContainer.className = "theme-selector";
@@ -47,7 +53,7 @@ class ThemeSwitcher {
     });
 
     selectorContainer.appendChild(select);
-    document.body.appendChild(selectorContainer);
+    nav.appendChild(selectorContainer);
   }
 
   bindEvents() {
