@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Theme Test</title>
+    <link rel="stylesheet" href="/static/themes.css" />
+    <style>
+      .debug-info {
+        position: fixed;
+        bottom: 10px;
+        left: 10px;
+        padding: 10px;
+        background: rgba(0, 0, 0, 0.8);
+        color: white;
+        font-family: monospace;
+        font-size: 12px;
+        border-radius: 5px;
+        z-index: 9999;
+      }
+
+      .test-section {
+        margin: 20px 0;
+        padding: 20px;
+        border: 2px solid red;
+      }
+    </style>
+  </head>
+  <body class="theme-terminal">
+    <div class="debug-info">
+      <div>Current theme: <span id="current-theme">terminal</span></div>
+      <div>Body classes: <span id="body-classes"></span></div>
+    </div>
+
+    <h1>Theme Test Page</h1>
+
+    <div class="test-section">
+      <h2>Test Section</h2>
+      <p>This is a test paragraph to see theme changes.</p>
+      <a href="#">Test Link</a>
+    </div>
+
+    <div class="nav">
+      <a href="/">Home</a>
+      <a href="/blog">Blog</a>
+    </div>
+
+    <script src="/static/theme-switcher.js"></script>
+    <script>
+      // Update debug info
+      function updateDebugInfo() {
+        document.getElementById("current-theme").textContent =
+          document.body.className.match(/theme-(\w+)/)?.[1] || "none";
+        document.getElementById("body-classes").textContent = document.body.className;
+      }
+
+      // Update debug info every second
+      setInterval(updateDebugInfo, 1000);
+      updateDebugInfo();
+
+      // Log when page loads
+      console.log("Test page loaded");
+      console.log("Body classes:", document.body.className);
+    </script>
+  </body>
+</html>
