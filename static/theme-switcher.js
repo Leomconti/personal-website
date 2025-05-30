@@ -1,7 +1,6 @@
 // Theme switcher functionality
 class ThemeSwitcher {
   constructor() {
-    console.log("ThemeSwitcher: Initializing...");
     this.themes = {
       terminal: "Terminal",
       tech: "Tech",
@@ -11,17 +10,13 @@ class ThemeSwitcher {
     };
 
     this.currentTheme = this.getStoredTheme() || "terminal";
-    console.log("ThemeSwitcher: Current theme:", this.currentTheme);
     this.init();
   }
 
   init() {
-    console.log("ThemeSwitcher: Creating theme selector...");
     this.createThemeSelector();
-    console.log("ThemeSwitcher: Applying theme:", this.currentTheme);
     this.applyTheme(this.currentTheme);
     this.bindEvents();
-    console.log("ThemeSwitcher: Initialization complete");
   }
 
   createThemeSelector() {
@@ -53,46 +48,32 @@ class ThemeSwitcher {
 
     selectorContainer.appendChild(select);
     document.body.appendChild(selectorContainer);
-    console.log("ThemeSwitcher: Theme selector created");
   }
 
   bindEvents() {
     const select = document.getElementById("theme-select");
     if (select) {
       select.addEventListener("change", (e) => {
-        console.log("ThemeSwitcher: Theme changed to:", e.target.value);
         this.switchTheme(e.target.value);
       });
-      console.log("ThemeSwitcher: Events bound");
-    } else {
-      console.error("ThemeSwitcher: Could not find theme select element");
     }
   }
 
   switchTheme(themeName) {
-    console.log("ThemeSwitcher: Switching to theme:", themeName);
     this.currentTheme = themeName;
     this.applyTheme(themeName);
     this.storeTheme(themeName);
   }
 
   applyTheme(themeName) {
-    console.log("ThemeSwitcher: Applying theme:", themeName);
-
     // Remove all theme classes
     Object.keys(this.themes).forEach((theme) => {
-      const className = `theme-${theme}`;
-      if (document.body.classList.contains(className)) {
-        console.log("ThemeSwitcher: Removing class:", className);
-      }
-      document.body.classList.remove(className);
+      document.body.classList.remove(`theme-${theme}`);
     });
 
     // Add the selected theme class
     const newClassName = `theme-${themeName}`;
     document.body.classList.add(newClassName);
-    console.log("ThemeSwitcher: Added class:", newClassName);
-    console.log("ThemeSwitcher: Body classes:", document.body.className);
 
     // Update the select value
     const select = document.getElementById("theme-select");
@@ -104,19 +85,15 @@ class ThemeSwitcher {
   storeTheme(themeName) {
     try {
       localStorage.setItem("selectedTheme", themeName);
-      console.log("ThemeSwitcher: Theme stored:", themeName);
     } catch (e) {
-      console.warn("Could not save theme preference:", e);
+      // Silently fail if localStorage is not available
     }
   }
 
   getStoredTheme() {
     try {
-      const stored = localStorage.getItem("selectedTheme");
-      console.log("ThemeSwitcher: Retrieved stored theme:", stored);
-      return stored;
+      return localStorage.getItem("selectedTheme");
     } catch (e) {
-      console.warn("Could not retrieve theme preference:", e);
       return null;
     }
   }
@@ -124,11 +101,10 @@ class ThemeSwitcher {
 
 // Initialize theme switcher when DOM is loaded
 function initThemeSwitcher() {
-  console.log("Initializing theme switcher...");
   try {
     new ThemeSwitcher();
   } catch (error) {
-    console.error("Error initializing theme switcher:", error);
+    // Silently fail if there's an error
   }
 }
 
@@ -143,7 +119,6 @@ if (document.readyState === "loading") {
 // Fallback initialization
 window.addEventListener("load", () => {
   if (!document.getElementById("theme-select")) {
-    console.log("Theme selector not found, reinitializing...");
     initThemeSwitcher();
   }
 });
