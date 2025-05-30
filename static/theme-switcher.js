@@ -72,14 +72,14 @@ class ThemeSwitcher {
   }
 
   applyTheme(themeName) {
-    // Remove all theme classes
+    // Remove all theme classes from html element
     Object.keys(this.themes).forEach((theme) => {
-      document.body.classList.remove(`theme-${theme}`);
+      document.documentElement.classList.remove(`theme-${theme}`);
     });
 
-    // Add the selected theme class
+    // Add the selected theme class to html element
     const newClassName = `theme-${themeName}`;
-    document.body.classList.add(newClassName);
+    document.documentElement.classList.add(newClassName);
 
     // Update the select value
     const select = document.getElementById("theme-select");

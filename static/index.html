@@ -5,9 +5,53 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Leonardo Conti | AI Engineer</title>
     <link rel="icon" type="image/x-icon" href="/static/favicon.ico" />
+    <style>
+      /* Critical CSS to prevent flash */
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        background-color: black;
+        color: #00ff00;
+        transition: none;
+      }
+    </style>
+    <script>
+      // Apply theme immediately to prevent flash - more aggressive approach
+      (function () {
+        const savedTheme = (() => {
+          try {
+            return localStorage.getItem("selectedTheme") || "terminal";
+          } catch (e) {
+            return "terminal";
+          }
+        })();
+
+        // Apply immediately to html element
+        document.documentElement.className = `theme-${savedTheme}`;
+
+        // Also apply to body when it's available
+        if (document.body) {
+          document.body.className = "";
+        }
+
+        // Double-check when DOM is ready
+        const applyTheme = () => {
+          if (!document.documentElement.className.includes("theme-")) {
+            document.documentElement.className = `theme-${savedTheme}`;
+          }
+        };
+
+        if (document.readyState === "loading") {
+          document.addEventListener("DOMContentLoaded", applyTheme);
+        } else {
+          applyTheme();
+        }
+      })();
+    </script>
     <link rel="stylesheet" href="/static/themes.css" />
   </head>
-  <body class="theme-terminal">
+  <body>
     <nav class="nav">
       <div class="nav-links">
         <a href="/">HOME</a>
