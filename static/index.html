@@ -344,9 +344,19 @@
         flex-shrink: 0;
       }
 
-      .marquee-row:nth-child(1) .marquee-item { font-size: 80px; letter-spacing: -0.03em; }
-      .marquee-row:nth-child(2) .marquee-item { font-size: 56px; letter-spacing: -0.02em; opacity: 0.5; }
-      .marquee-row:nth-child(3) .marquee-item { font-size: 36px; opacity: 0.35; }
+      .marquee-row:nth-child(1) .marquee-item {
+        font-size: 80px;
+        letter-spacing: -0.03em;
+      }
+      .marquee-row:nth-child(2) .marquee-item {
+        font-size: 56px;
+        letter-spacing: -0.02em;
+        opacity: 0.5;
+      }
+      .marquee-row:nth-child(3) .marquee-item {
+        font-size: 36px;
+        opacity: 0.35;
+      }
 
       .marquee-dot {
         font-size: 24px;
@@ -376,13 +386,21 @@
       }
 
       @keyframes scroll-left {
-        0% { transform: translateX(0); }
-        100% { transform: translateX(-50%); }
+        0% {
+          transform: translateX(0);
+        }
+        100% {
+          transform: translateX(-50%);
+        }
       }
 
       @keyframes scroll-right {
-        0% { transform: translateX(-50%); }
-        100% { transform: translateX(0); }
+        0% {
+          transform: translateX(-50%);
+        }
+        100% {
+          transform: translateX(0);
+        }
       }
 
       @media (max-width: 768px) {
@@ -465,9 +483,15 @@
           gap: 20px;
         }
 
-        .marquee-row:nth-child(1) .marquee-item { font-size: 32px; }
-        .marquee-row:nth-child(2) .marquee-item { font-size: 24px; }
-        .marquee-row:nth-child(3) .marquee-item { font-size: 18px; }
+        .marquee-row:nth-child(1) .marquee-item {
+          font-size: 32px;
+        }
+        .marquee-row:nth-child(2) .marquee-item {
+          font-size: 24px;
+        }
+        .marquee-row:nth-child(3) .marquee-item {
+          font-size: 18px;
+        }
 
         .marquee-dot {
           font-size: 14px;
@@ -505,10 +529,13 @@
 
       <section class="manifesto-section">
         <div class="manifesto-content">
-          <div class="manifesto-label">About</div>
+          <div class="manifesto-label">My approach</div>
           <div class="manifesto-text">
-            Building the interface between <em>human intention</em> and <em>machine understanding</em>. The future isn't
-            just conversational—it's <em>intentional</em>.
+            From POC prototypes to fully autonomous agents, everything is built to deliver
+            <strong>real results</strong> and push the limits of what current models can actually do. <br /><br />
+            <strong>Conversational AI interfaces</strong> for consumers, <strong>technical agents</strong> for
+            business.<br />
+            <span style="font-weight: 600">Anything in between.</span>
           </div>
         </div>
       </section>
@@ -539,7 +566,9 @@
 
       <section class="mission-section">
         <div class="mission-label">Current Mission</div>
-        <div class="mission-big">Reimagining how humans and machines communicate—one conversation at a time.</div>
+        <div class="mission-big">
+          Agents and interfaces that test the real boundaries of what LLMs and reasoning engines can do today, at scale.
+        </div>
       </section>
 
       <section class="connect-section">
