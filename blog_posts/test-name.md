@@ -1,43 +1,24 @@
 ---
-title: "Lorem Ipsum Dolor Sit Amet"
-date: "2024-01-20"
+title: "I redesigned this with AI"
+date: "2026-01-02"
 author: "Leonardo Conti"
-description: "Consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore"
-tags: ["Lorem", "Ipsum", "Dolor", "Sit"]
+description: "Coding Agents are great, use them."
+tags: ["AI", "Technology", "Personal"]
 ---
 
-# Lorem Ipsum Dolor Sit Amet
+# I redesigned this with AI
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+_This will be very raw and me talking to myself, I don't expect anyone to read this but me._
 
-## Sed Do Eiusmod Tempor
+OpenCode is great. Their TUI works well, the new incoming desktop app is also amazing. Recommend.
+Cursor still my editor, but I'm starting more and more to enjoy working with agents on the background to ship full fledged features.
 
-Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident:
+## How to make it look different
 
-- **Sunt in culpa**: Qui officia deserunt mollit anim id est laborum
-- **Sed ut perspiciatis**: Unde omnis iste natus error sit voluptatem
-- **Accusantium doloremque**: Laudantium totam rem aperiam eaque ipsa
-- **Quae ab illo**: Inventore veritatis et quasi architecto beatae
+You can go far with "Update my design COMPLETELY. Make it something Steve Jobs and Jony Ive would approve", not gonna lie, even with MiniMax M2.1 it did great, Opus 4.5 probably would be even better.
 
-## Nemo Enim Ipsam Voluptatem
+## Just do it
 
-### 1. Quia Voluptas Sit
+I just did an html file, edit mostly with AI, made some templates to render markdown which will be my posts. Almost like a CMS. Reminds me of a tweet from a cursor guy that they changed their CMS to be markdown files, will read that... good idea.
 
-Aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.
-
-### 2. Neque Porro Quisquam
-
-Est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt.
-
-### 3. Ut Labore Et Dolore
-
-Magnam aliquam quaerat voluptatem ut enim ad minima veniam:
-
-- Quis autem vel eum iure
-- Reprehenderit qui in ea
-- Voluptate velit esse quam
-- Nihil molestiae consequatur
-
-## Lorem Ipsum Stack
-
-Neque porro quisquam est qui dolorem ipsum quia dolor sit amet:
+The barrier from idea from idea to implementation is getting very thin. Just try things, get a coding agent, put some credits and start prompting and seeing what happen, it is incredibly fun, and powerful! It's what I've been doing during my week of PTO. Starting to get used to these tools to make 2026 a great year.

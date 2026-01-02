@@ -3,112 +3,663 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Leonardo Conti | AI Engineer</title>
+    <title>Leonardo Conti</title>
     <link rel="icon" type="image/x-icon" href="/static/favicon.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=SF+Compact+Display:wght@100;900&display=swap"
+      rel="stylesheet"
+    />
     <style>
-      /* Critical CSS to prevent flash */
-      html,
-      body {
+      * {
         margin: 0;
         padding: 0;
-        background-color: black;
-        color: #00ff00;
-        transition: none;
+        box-sizing: border-box;
+      }
+
+      :root {
+        --black: #000000;
+        --white: #ffffff;
+        --gray: #8e8e93;
+      }
+
+      html,
+      body {
+        height: 100%;
+        overflow-x: hidden;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "SF Compact Display", "SF Pro Display", "Helvetica Neue",
+          Helvetica, Arial, sans-serif;
+        background-color: var(--black);
+        color: var(--white);
+        -webkit-font-smoothing: antialiased;
+        cursor: default;
+      }
+
+      .scroll-container {
+        height: 100vh;
+        overflow-y: auto;
+        scroll-snap-type: y mandatory;
+      }
+
+      .scroll-container::-webkit-scrollbar {
+        width: 0;
+        background: transparent;
+      }
+
+      section {
+        min-height: 100vh;
+        scroll-snap-align: start;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 40px;
+      }
+
+      .nav {
+        position: fixed;
+        top: 40px;
+        left: 40px;
+        right: 40px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 1000;
+        mix-blend-mode: difference;
+      }
+
+      .nav-logo {
+        font-size: 14px;
+        font-weight: 700;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 40px;
+      }
+
+      .nav-links a {
+        color: var(--white);
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 500;
+        letter-spacing: 1px;
+        position: relative;
+        transition: opacity 0.3s;
+      }
+
+      .nav-links a:hover,
+      .nav-links a.active {
+        opacity: 1;
+      }
+
+      .nav-links a::after {
+        content: "";
+        position: absolute;
+        bottom: -4px;
+        left: 0;
+        width: 100%;
+        height: 1px;
+        background: var(--white);
+        transform: scaleX(0);
+        transition: transform 0.3s;
+      }
+
+      .nav-links a:hover::after,
+      .nav-links a.active::after {
+        transform: scaleX(1);
+      }
+
+      .hero-section {
+        justify-content: flex-end;
+        padding-bottom: 120px;
+        background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.8)),
+          url("/assets/leo_image.webp") center center no-repeat;
+        background-size: cover;
+        background-attachment: fixed;
+      }
+
+      .hero-name {
+        font-family: "SF Compact Display", -apple-system, sans-serif;
+        font-size: clamp(60px, 18vw, 280px);
+        font-weight: 900;
+        line-height: 0.85;
+        letter-spacing: -0.04em;
+        text-transform: uppercase;
+      }
+
+      .hero-name span {
+        display: block;
+      }
+
+      .hero-title {
+        font-size: clamp(14px, 2vw, 24px);
+        font-weight: 100;
+        letter-spacing: 0.5em;
+        text-transform: uppercase;
+        margin-top: 40px;
+        opacity: 0.8;
+      }
+
+      .manifesto-section {
+        padding: 80px;
+      }
+
+      .manifesto-content {
+        max-width: 900px;
+        margin: 0 auto;
+      }
+
+      .manifesto-label {
+        font-size: 11px;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: var(--gray);
+        margin-bottom: 40px;
+      }
+
+      .manifesto-text {
+        font-size: clamp(28px, 4vw, 64px);
+        font-weight: 400;
+        line-height: 1.1;
+        letter-spacing: -0.02em;
+      }
+
+      .manifesto-text em {
+        font-style: italic;
+        font-weight: 100;
+        opacity: 0.7;
+      }
+
+      .stack-section {
+        display: grid;
+        grid-template-columns: 60px 1fr;
+        gap: 60px;
+        padding: 80px;
+        align-items: center;
+      }
+
+      .stack-label {
+        font-size: 11px;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: var(--gray);
+        writing-mode: vertical-rl;
+        text-orientation: mixed;
+        transform: rotate(180deg);
+      }
+
+      .stack-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2px;
+      }
+
+      .stack-item {
+        padding: 32px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        transition: all 0.4s;
+      }
+
+      .stack-item:hover {
+        background: var(--white);
+        color: var(--black);
+      }
+
+      .stack-name {
+        font-size: 22px;
+        font-weight: 600;
+        letter-spacing: -0.02em;
+      }
+
+      .mission-section {
+        background: var(--white);
+        color: var(--black);
+        justify-content: center;
+        padding: 80px;
+      }
+
+      .mission-label {
+        font-size: 11px;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: var(--gray);
+        margin-bottom: 60px;
+      }
+
+      .mission-big {
+        font-size: clamp(32px, 5vw, 80px);
+        font-weight: 900;
+        line-height: 0.95;
+        letter-spacing: -0.03em;
+        max-width: 1100px;
+      }
+
+      .connect-section {
+        padding: 80px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 80px;
+        align-items: center;
+      }
+
+      .connect-label {
+        font-size: 11px;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: var(--gray);
+        writing-mode: vertical-rl;
+        transform: rotate(180deg);
+      }
+
+      .connect-links {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+      }
+
+      .connect-link {
+        display: flex;
+        align-items: baseline;
+        gap: 20px;
+        padding: 24px 0;
+        border-top: 1px solid rgba(255, 255, 255, 0.2);
+        text-decoration: none;
+        color: var(--white);
+        transition: all 0.3s;
+      }
+
+      .connect-link:last-child {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .connect-link:hover {
+        padding-left: 20px;
+        background: rgba(255, 255, 255, 0.05);
+      }
+
+      .connect-link span:first-child {
+        font-size: 12px;
+        letter-spacing: 1px;
+        color: var(--gray);
+        width: 80px;
+        flex-shrink: 0;
+      }
+
+      .connect-link span:last-child {
+        font-size: clamp(18px, 2.5vw, 28px);
+        font-weight: 600;
+        letter-spacing: -0.02em;
+      }
+
+      .marquee-section {
+        overflow: hidden;
+        background: var(--white);
+        color: var(--black);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 60px 0;
+      }
+
+      .marquee-container {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .marquee-row {
+        display: flex;
+        overflow: hidden;
+        padding: 16px 0;
+      }
+
+      .marquee-row-inner {
+        display: flex;
+        align-items: center;
+        gap: 40px;
+        white-space: nowrap;
+        flex-shrink: 0;
+      }
+
+      .marquee-row:nth-child(1) .marquee-row-inner {
+        animation: scroll-left 40s linear infinite;
+      }
+      .marquee-row:nth-child(2) .marquee-row-inner {
+        animation: scroll-right 40s linear infinite;
+      }
+      .marquee-row:nth-child(3) .marquee-row-inner {
+        animation: scroll-left 40s linear infinite;
+      }
+
+      .marquee-item {
+        font-weight: 900;
+        text-transform: uppercase;
+        flex-shrink: 0;
+      }
+
+      .marquee-row:nth-child(1) .marquee-item { font-size: 80px; letter-spacing: -0.03em; }
+      .marquee-row:nth-child(2) .marquee-item { font-size: 56px; letter-spacing: -0.02em; opacity: 0.5; }
+      .marquee-row:nth-child(3) .marquee-item { font-size: 36px; opacity: 0.35; }
+
+      .marquee-dot {
+        font-size: 24px;
+        opacity: 0.3;
+      }
+
+      .marquee-cta {
+        text-align: center;
+        padding: 80px 40px;
+      }
+
+      .marquee-cta a {
+        display: inline-block;
+        font-size: clamp(24px, 4vw, 48px);
+        font-weight: 900;
+        letter-spacing: -0.02em;
+        color: var(--black);
+        text-decoration: none;
+        padding: 24px 48px;
+        border: 4px solid var(--black);
+        transition: all 0.3s;
+      }
+
+      .marquee-cta a:hover {
+        background: var(--black);
+        color: var(--white);
+      }
+
+      @keyframes scroll-left {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-50%); }
+      }
+
+      @keyframes scroll-right {
+        0% { transform: translateX(-50%); }
+        100% { transform: translateX(0); }
+      }
+
+      @media (max-width: 768px) {
+        section {
+          padding: 24px;
+        }
+
+        .nav {
+          top: 24px;
+          left: 24px;
+          right: 24px;
+        }
+
+        .nav-links {
+          gap: 20px;
+        }
+
+        .hero-section {
+          padding-bottom: 60px;
+        }
+
+        .stack-section,
+        .connect-section {
+          grid-template-columns: 1fr;
+          gap: 24px;
+          padding: 40px 24px;
+        }
+
+        .stack-label {
+          writing-mode: horizontal-tb;
+          transform: none;
+          text-align: center;
+        }
+
+        .stack-item {
+          padding: 20px 24px;
+        }
+
+        .stack-name {
+          font-size: 20px;
+        }
+
+        .connect-label {
+          writing-mode: horizontal-tb;
+          transform: none;
+          text-align: center;
+          letter-spacing: 3px;
+        }
+
+        .connect-link {
+          padding: 16px 0;
+        }
+
+        .connect-link span:first-child {
+          width: 60px;
+          font-size: 11px;
+        }
+
+        .connect-link span:last-child {
+          font-size: 16px;
+        }
+
+        .manifesto-section {
+          padding: 40px 24px;
+        }
+
+        .mission-section {
+          padding: 40px 24px;
+        }
+
+        .marquee-section {
+          padding: 40px 0;
+        }
+
+        .marquee-row {
+          padding: 10px 0;
+        }
+
+        .marquee-row-inner {
+          gap: 20px;
+        }
+
+        .marquee-row:nth-child(1) .marquee-item { font-size: 32px; }
+        .marquee-row:nth-child(2) .marquee-item { font-size: 24px; }
+        .marquee-row:nth-child(3) .marquee-item { font-size: 18px; }
+
+        .marquee-dot {
+          font-size: 14px;
+        }
+
+        .marquee-cta {
+          padding: 50px 24px;
+        }
+
+        .marquee-cta a {
+          font-size: 18px;
+          padding: 14px 20px;
+          border-width: 2px;
+        }
       }
     </style>
-    <script>
-      // Apply theme immediately to prevent flash - more aggressive approach
-      (function () {
-        const savedTheme = (() => {
-          try {
-            return localStorage.getItem("selectedTheme") || "terminal";
-          } catch (e) {
-            return "terminal";
-          }
-        })();
-
-        // Apply immediately to html element
-        document.documentElement.className = `theme-${savedTheme}`;
-
-        // Also apply to body when it's available
-        if (document.body) {
-          document.body.className = "";
-        }
-
-        // Double-check when DOM is ready
-        const applyTheme = () => {
-          if (!document.documentElement.className.includes("theme-")) {
-            document.documentElement.className = `theme-${savedTheme}`;
-          }
-        };
-
-        if (document.readyState === "loading") {
-          document.addEventListener("DOMContentLoaded", applyTheme);
-        } else {
-          applyTheme();
-        }
-      })();
-    </script>
-    <link rel="stylesheet" href="/static/themes.css" />
   </head>
   <body>
     <nav class="nav">
+      <div class="nav-logo">LC</div>
       <div class="nav-links">
-        <a href="/">HOME</a>
+        <a href="/" class="active">HOME</a>
         <a href="/blog">BLOG</a>
       </div>
     </nav>
 
-    <img src="/assets/leo_image.webp" alt="Leonardo Conti" class="profile-img" />
+    <div class="scroll-container">
+      <section class="hero-section">
+        <div class="hero-name">
+          <span>Leonardo</span>
+          <span>Conti</span>
+        </div>
+        <div class="hero-title">AI Engineer • Founder • Builder</div>
+      </section>
 
-    <h1>Leonardo Conti</h1>
-    <p style="text-align: center; margin: 5px 0">
-      > AI Engineer | Conversational AI Innovator <span class="terminal-cursor">▌</span>
-    </p>
+      <section class="manifesto-section">
+        <div class="manifesto-content">
+          <div class="manifesto-label">About</div>
+          <div class="manifesto-text">
+            Building the interface between <em>human intention</em> and <em>machine understanding</em>. The future isn't
+            just conversational—it's <em>intentional</em>.
+          </div>
+        </div>
+      </section>
 
-    <div class="section">
-      <h2>[ ABOUT ME ]</h2>
-      <p>
-        Pioneering the future of conversational AI by developing intelligent chatbots and virtual assistants that
-        understand and respond to human language with unprecedented natural interaction. Specializing in LLMs to create
-        transformative communication experiences.
-      </p>
+      <section class="stack-section">
+        <div class="stack-label">Expertise</div>
+        <div class="stack-grid">
+          <div class="stack-item">
+            <div class="stack-name">Python</div>
+          </div>
+          <div class="stack-item">
+            <div class="stack-name">AI</div>
+          </div>
+          <div class="stack-item">
+            <div class="stack-name">LLMs</div>
+          </div>
+          <div class="stack-item">
+            <div class="stack-name">Agents</div>
+          </div>
+          <div class="stack-item">
+            <div class="stack-name">TypeScript</div>
+          </div>
+          <div class="stack-item">
+            <div class="stack-name">Backend</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="mission-section">
+        <div class="mission-label">Current Mission</div>
+        <div class="mission-big">Reimagining how humans and machines communicate—one conversation at a time.</div>
+      </section>
+
+      <section class="connect-section">
+        <div class="connect-label">Contact</div>
+        <div class="connect-links">
+          <a href="mailto:leomconti@gmail.com" class="connect-link">
+            <span>EMAIL</span>
+            <span>leomconti@gmail.com</span>
+          </a>
+          <a href="https://www.linkedin.com/in/leomconti/" target="_blank" class="connect-link">
+            <span>LINKEDIN</span>
+            <span>in/leomconti</span>
+          </a>
+          <a href="https://github.com/leomconti" target="_blank" class="connect-link">
+            <span>GITHUB</span>
+            <span>github.com/leomconti</span>
+          </a>
+          <a href="https://x.com/leomconti1" target="_blank" class="connect-link">
+            <span>TWITTER</span>
+            <span>@leomconti1</span>
+          </a>
+        </div>
+      </section>
+
+      <section class="marquee-section">
+        <div class="marquee-container">
+          <div class="marquee-row">
+            <div class="marquee-row-inner">
+              <span class="marquee-item">Artificial Intelligence</span>
+              <span class="marquee-dot">×</span>
+              <span class="marquee-item">Machine Learning</span>
+              <span class="marquee-dot">×</span>
+              <span class="marquee-item">Neural Networks</span>
+              <span class="marquee-dot">×</span>
+              <span class="marquee-item">Natural Language</span>
+              <span class="marquee-dot">×</span>
+              <span class="marquee-item">Conversational AI</span>
+              <span class="marquee-dot">×</span>
+              <span class="marquee-item">Intelligent Agents</span>
+              <span class="marquee-dot">×</span>
+              <span class="marquee-item">Artificial Intelligence</span>
+              <span class="marquee-dot">×</span>
+              <span class="marquee-item">Machine Learning</span>
+              <span class="marquee-dot">×</span>
+              <span class="marquee-item">Neural Networks</span>
+              <span class="marquee-dot">×</span>
+              <span class="marquee-item">Natural Language</span>
+              <span class="marquee-dot">×</span>
+              <span class="marquee-item">Conversational AI</span>
+              <span class="marquee-dot">×</span>
+              <span class="marquee-item">Intelligent Agents</span>
+            </div>
+          </div>
+          <div class="marquee-row">
+            <div class="marquee-row-inner">
+              <span class="marquee-item">Python</span>
+              <span class="marquee-dot">/</span>
+              <span class="marquee-item">TypeScript</span>
+              <span class="marquee-dot">/</span>
+              <span class="marquee-item">Go</span>
+              <span class="marquee-dot">/</span>
+              <span class="marquee-item">LLMs</span>
+              <span class="marquee-dot">/</span>
+              <span class="marquee-item">OpenAI</span>
+              <span class="marquee-dot">/</span>
+              <span class="marquee-item">Agents</span>
+              <span class="marquee-dot">/</span>
+              <span class="marquee-item">Python</span>
+              <span class="marquee-dot">/</span>
+              <span class="marquee-item">TypeScript</span>
+              <span class="marquee-dot">/</span>
+              <span class="marquee-item">Go</span>
+              <span class="marquee-dot">/</span>
+              <span class="marquee-item">LLMs</span>
+              <span class="marquee-dot">/</span>
+              <span class="marquee-item">OpenAI</span>
+              <span class="marquee-dot">/</span>
+              <span class="marquee-item">Agents</span>
+              <span class="marquee-dot">/</span>
+              <span class="marquee-item">Python</span>
+              <span class="marquee-dot">/</span>
+              <span class="marquee-item">TypeScript</span>
+              <span class="marquee-dot">/</span>
+              <span class="marquee-item">Go</span>
+              <span class="marquee-dot">/</span>
+              <span class="marquee-item">LLMs</span>
+              <span class="marquee-dot">/</span>
+              <span class="marquee-item">OpenAI</span>
+              <span class="marquee-dot">/</span>
+              <span class="marquee-item">Agents</span>
+            </div>
+          </div>
+          <div class="marquee-row">
+            <div class="marquee-row-inner">
+              <span class="marquee-item">Backend</span>
+              <span class="marquee-dot">+</span>
+              <span class="marquee-item">API</span>
+              <span class="marquee-dot">+</span>
+              <span class="marquee-item">Cloud</span>
+              <span class="marquee-dot">+</span>
+              <span class="marquee-item">Scale</span>
+              <span class="marquee-dot">+</span>
+              <span class="marquee-item">Deploy</span>
+              <span class="marquee-dot">+</span>
+              <span class="marquee-item">Backend</span>
+              <span class="marquee-dot">+</span>
+              <span class="marquee-item">API</span>
+              <span class="marquee-dot">+</span>
+              <span class="marquee-item">Cloud</span>
+              <span class="marquee-dot">+</span>
+              <span class="marquee-item">Scale</span>
+              <span class="marquee-dot">+</span>
+              <span class="marquee-item">Deploy</span>
+            </div>
+          </div>
+        </div>
+        <div class="marquee-cta">
+          <a href="/blog">Read the Blog →</a>
+        </div>
+      </section>
     </div>
-
-    <div class="section">
-      <h2>[ STARTUP MISSION ]</h2>
-      <p>
-        Building a groundbreaking startup focused on creating advanced conversational AI systems. Our goal: Develop
-        LLM-powered technologies that redefine human-machine interaction, pushing the boundaries of natural language
-        understanding.
-      </p>
-    </div>
-
-    <div class="section" id="connect">
-      <h2>[ CONNECT ]</h2>
-      <p>
-        >>> Email: <a href="mailto:leomconti@gmail.com">leomconti@gmail.com</a><br />
-        >>> LinkedIn: <a href="https://www.linkedin.com/in/leomconti/">linkedin.com/in/leomconti</a><br />
-        >>> GitHub: <a href="https://github.com/leomconti">github.com/leomconti</a><br />
-        >>> X (Twitter): <a href="https://x.com/leomconti1">x.com/leomconti1</a>
-      </p>
-    </div>
-
-    <div class="section">
-      <h2>[ TECHNICAL FOCUS ]</h2>
-      <p>
-        >>> Large Language Models<br />
-        >>> Conversational AI Systems<br />
-        >>> Backend Development<br />
-        >>> Python | Typescript | Golang<br />
-        >>> Intelligent Agents Systems
-      </p>
-    </div>
-
-    <footer>
-      <div class="status-box">SYSTEM STATUS: STARTUP MODE | ACTIVE</div>
-    </footer>
-
-    <script src="/static/theme-switcher.js"></script>
   </body>
 </html>

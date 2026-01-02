@@ -5,482 +5,299 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{{ title }} | Leonardo Conti</title>
     <link rel="icon" type="image/x-icon" href="/static/favicon.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=SF+Compact+Display:wght@100;900&display=swap" rel="stylesheet" />
     <style>
-      /* Critical CSS to prevent flash */
-      html,
-      body {
+      * {
         margin: 0;
         padding: 0;
-        background-color: black;
-        color: #00ff00;
-        transition: none;
-      }
-    </style>
-    <script>
-      // Apply theme immediately to prevent flash - more aggressive approach
-      (function () {
-        const savedTheme = (() => {
-          try {
-            return localStorage.getItem("selectedTheme") || "terminal";
-          } catch (e) {
-            return "terminal";
-          }
-        })();
-
-        // Apply immediately to html element
-        document.documentElement.className = `theme-${savedTheme}`;
-
-        // Also apply to body when it's available
-        if (document.body) {
-          document.body.className = "";
-        }
-
-        // Double-check when DOM is ready
-        const applyTheme = () => {
-          if (!document.documentElement.className.includes("theme-")) {
-            document.documentElement.className = `theme-${savedTheme}`;
-          }
-        };
-
-        if (document.readyState === "loading") {
-          document.addEventListener("DOMContentLoaded", applyTheme);
-        } else {
-          applyTheme();
-        }
-      })();
-    </script>
-    <link rel="stylesheet" href="/static/themes.css" />
-    <style>
-      .blog-header {
-        text-align: center;
-        margin-bottom: 30px;
+        box-sizing: border-box;
       }
 
-      .blog-title {
-        font-size: 2rem;
-        margin-bottom: 10px;
-        padding-bottom: 10px;
+      :root {
+        --black: #000000;
+        --white: #ffffff;
+        --gray: #8e8e93;
+        --dark-gray: #333333;
       }
 
-      .blog-meta {
-        font-size: 0.9rem;
-        margin-bottom: 20px;
-        opacity: 0.8;
+      html, body {
+        height: 100%;
       }
 
-      .blog-content {
-        padding: 20px;
-        margin-bottom: 20px;
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "SF Compact Display", "SF Pro Display", "Helvetica Neue", Helvetica, Arial, sans-serif;
+        background-color: var(--black);
+        color: var(--white);
+        -webkit-font-smoothing: antialiased;
         line-height: 1.6;
       }
 
-      .blog-content h1 {
-        padding-bottom: 5px;
-        margin-top: 25px;
-        margin-bottom: 15px;
+      .nav {
+        position: fixed;
+        top: 40px;
+        left: 40px;
+        right: 40px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 1000;
+        mix-blend-mode: difference;
       }
 
-      .blog-content h2 {
-        margin-top: 20px;
-        margin-bottom: 10px;
+      .nav-logo {
+        font-size: 14px;
+        font-weight: 700;
+        letter-spacing: 2px;
+        text-transform: uppercase;
       }
 
-      .blog-content h3 {
-        margin-top: 15px;
-        margin-bottom: 8px;
+      .nav-links {
+        display: flex;
+        gap: 40px;
       }
 
-      .blog-content p {
-        margin-bottom: 15px;
-      }
-
-      .blog-content ul,
-      .blog-content ol {
-        margin-bottom: 15px;
-        padding-left: 20px;
-      }
-
-      .blog-content li {
-        margin-bottom: 5px;
-      }
-
-      .blog-content a {
+      .nav-links a {
+        color: var(--white);
         text-decoration: none;
-        transition: all 0.3s;
+        font-size: 14px;
+        font-weight: 500;
+        letter-spacing: 1px;
+        position: relative;
+        transition: opacity 0.3s;
       }
 
-      .blog-content code {
-        padding: 2px 4px;
-        font-family: "Courier New", monospace;
-        border-radius: 3px;
+      .nav-links a:hover,
+      .nav-links a.active {
+        opacity: 0.7;
       }
 
-      .blog-content pre {
-        padding: 15px;
+      .nav-links a::after {
+        content: '';
+        position: absolute;
+        bottom: -4px;
+        left: 0;
+        width: 100%;
+        height: 1px;
+        background: var(--white);
+        transform: scaleX(0);
+        transition: transform 0.3s;
+      }
+
+      .nav-links a:hover::after,
+      .nav-links a.active::after {
+        transform: scaleX(1);
+      }
+
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 160px 40px 80px;
+      }
+
+      .article-header {
+        margin-bottom: 60px;
+        padding-bottom: 40px;
+        border-bottom: 1px solid rgba(255,255,255,0.15);
+      }
+
+      .article-meta {
+        font-size: 12px;
+        letter-spacing: 1px;
+        color: var(--gray);
+        margin-top: 24px;
+      }
+
+      .article-title {
+        font-family: "SF Compact Display", -apple-system, sans-serif;
+        font-size: clamp(32px, 6vw, 64px);
+        font-weight: 900;
+        line-height: 0.95;
+        letter-spacing: -0.03em;
+      }
+
+      .article-content {
+        font-size: 18px;
+        line-height: 1.7;
+      }
+
+      .article-content p {
+        margin-bottom: 24px;
+      }
+
+      .article-content h1,
+      .article-content h2,
+      .article-content h3 {
+        font-family: "SF Compact Display", -apple-system, sans-serif;
+        font-weight: 900;
+        letter-spacing: -0.02em;
+        margin-top: 48px;
+        margin-bottom: 16px;
+      }
+
+      .article-content h1 { font-size: 36px; }
+      .article-content h2 { font-size: 28px; }
+      .article-content h3 { font-size: 22px; }
+
+      .article-content a {
+        color: var(--white);
+        text-decoration: none;
+        border-bottom: 1px solid rgba(255,255,255,0.3);
+        transition: border-color 0.3s;
+      }
+
+      .article-content a:hover {
+        border-bottom-color: var(--white);
+      }
+
+      .article-content code {
+        font-family: "SF Mono", Monaco, Consolas, monospace;
+        font-size: 14px;
+        background: rgba(255,255,255,0.1);
+        padding: 2px 6px;
+      }
+
+      .article-content pre {
+        background: rgba(255,255,255,0.05);
+        padding: 24px;
         overflow-x: auto;
-        margin: 15px 0;
-        border-radius: 5px;
+        margin: 32px 0;
+        font-size: 14px;
+        line-height: 1.5;
       }
 
-      .blog-content pre code {
+      .article-content pre code {
         background: none;
-        border: none;
         padding: 0;
       }
 
-      .blog-content blockquote {
-        padding-left: 15px;
-        margin: 15px 0;
+      .article-content ul,
+      .article-content ol {
+        margin: 24px 0;
+        padding-left: 24px;
+      }
+
+      .article-content li {
+        margin-bottom: 8px;
+      }
+
+      .article-content blockquote {
+        border-left: 3px solid var(--gray);
+        padding-left: 24px;
+        margin: 32px 0;
+        color: var(--gray);
         font-style: italic;
+      }
+
+      .article-content img {
+        max-width: 100%;
+        height: auto;
+        margin: 32px 0;
       }
 
       .tags {
-        margin-top: 20px;
-        padding-top: 15px;
+        margin-top: 60px;
+        padding-top: 40px;
+        border-top: 1px solid rgba(255,255,255,0.15);
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
       }
 
       .tag {
-        display: inline-block;
-        padding: 3px 8px;
-        margin: 2px;
-        font-size: 0.8rem;
-        border-radius: 3px;
+        font-size: 10px;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        padding: 8px 16px;
+        border: 1px solid rgba(255,255,255,0.2);
       }
 
       .back-link {
-        text-align: center;
-        margin-top: 30px;
+        margin-top: 40px;
       }
 
       .back-link a {
+        color: var(--gray);
         text-decoration: none;
-        padding: 8px 15px;
-        transition: all 0.3s;
-        border-radius: 5px;
+        font-size: 14px;
+        letter-spacing: 1px;
+        transition: color 0.3s;
       }
 
-      /* Theme-specific styles */
-      .theme-terminal .blog-title {
-        border-bottom: 2px solid #00ff00;
+      .back-link a:hover {
+        color: var(--white);
       }
 
-      .theme-terminal .blog-content {
-        border: 1px solid #00ff00;
+      .footer {
+        position: fixed;
+        bottom: 40px;
+        left: 40px;
+        font-size: 11px;
+        letter-spacing: 1px;
+        color: var(--gray);
+        z-index: 1000;
+        mix-blend-mode: difference;
       }
 
-      .theme-terminal .blog-content h1 {
-        color: #00ff00;
-        border-bottom: 1px solid #00ff00;
-      }
+      @media (max-width: 768px) {
+        .nav {
+          top: 24px;
+          left: 24px;
+          right: 24px;
+        }
 
-      .theme-terminal .blog-content h2 {
-        color: #00ff00;
-      }
+        .nav-links {
+          gap: 20px;
+        }
 
-      .theme-terminal .blog-content h3 {
-        color: #00dd00;
-      }
+        .container {
+          padding: 120px 24px 60px;
+        }
 
-      .theme-terminal .blog-content a {
-        color: #00ff00;
-        border-bottom: 1px dotted #00ff00;
-      }
+        .article-content {
+          font-size: 16px;
+        }
 
-      .theme-terminal .blog-content a:hover {
-        color: white;
-        border-bottom-color: white;
-      }
-
-      .theme-terminal .blog-content code {
-        background-color: #001100;
-        border: 1px solid #00ff00;
-        color: #00ff00;
-      }
-
-      .theme-terminal .blog-content pre {
-        background-color: #001100;
-        border: 1px solid #00ff00;
-      }
-
-      .theme-terminal .blog-content blockquote {
-        border-left: 3px solid #00ff00;
-        color: #00dd00;
-      }
-
-      .theme-terminal .tags {
-        border-top: 1px solid #00ff00;
-      }
-
-      .theme-terminal .tag {
-        background-color: #001100;
-        border: 1px solid #00ff00;
-        color: #00ff00;
-      }
-
-      .theme-terminal .back-link a {
-        color: #00ff00;
-        border: 1px solid #00ff00;
-      }
-
-      .theme-terminal .back-link a:hover {
-        background-color: #00ff00;
-        color: black;
-      }
-
-      .theme-tech .blog-title {
-        border-bottom: 3px solid #00d4ff;
-        background: linear-gradient(45deg, #00d4ff, #0099cc);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-      }
-
-      .theme-tech .blog-content {
-        border: 1px solid #00d4ff;
-        background: rgba(0, 212, 255, 0.05);
-        border-radius: 8px;
-      }
-
-      .theme-tech .blog-content h1,
-      .theme-tech .blog-content h2,
-      .theme-tech .blog-content h3 {
-        color: #00d4ff;
-      }
-
-      .theme-tech .blog-content h1 {
-        border-bottom: 1px solid #00d4ff;
-      }
-
-      .theme-tech .blog-content code {
-        background-color: rgba(0, 212, 255, 0.1);
-        border: 1px solid #00d4ff;
-        color: #00d4ff;
-      }
-
-      .theme-tech .blog-content pre {
-        background-color: rgba(0, 212, 255, 0.1);
-        border: 1px solid #00d4ff;
-      }
-
-      .theme-tech .blog-content blockquote {
-        border-left: 3px solid #00d4ff;
-        color: #00d4ff;
-      }
-
-      .theme-tech .tags {
-        border-top: 1px solid #00d4ff;
-      }
-
-      .theme-tech .tag {
-        background: rgba(0, 212, 255, 0.1);
-        border: 1px solid #00d4ff;
-        color: #00d4ff;
-      }
-
-      .theme-tech .back-link a {
-        color: #00d4ff;
-        border: 1px solid #00d4ff;
-      }
-
-      .theme-tech .back-link a:hover {
-        background: linear-gradient(45deg, #00d4ff, #0099cc);
-        color: #0c0c0c;
-      }
-
-      .theme-basic .blog-title {
-        border-bottom: 2px solid #333333;
-        color: #333333;
-      }
-
-      .theme-basic .blog-content {
-        border: 1px solid #333333;
-        background-color: #f9f9f9;
-      }
-
-      .theme-basic .blog-content h1,
-      .theme-basic .blog-content h2,
-      .theme-basic .blog-content h3 {
-        color: #333333;
-      }
-
-      .theme-basic .blog-content h1 {
-        border-bottom: 1px solid #333333;
-      }
-
-      .theme-basic .blog-content code {
-        background-color: #e0e0e0;
-        border: 1px solid #333333;
-        color: #333333;
-      }
-
-      .theme-basic .blog-content pre {
-        background-color: #e0e0e0;
-        border: 1px solid #333333;
-      }
-
-      .theme-basic .blog-content blockquote {
-        border-left: 3px solid #333333;
-        color: #666666;
-      }
-
-      .theme-basic .tags {
-        border-top: 1px solid #333333;
-      }
-
-      .theme-basic .tag {
-        background-color: #e0e0e0;
-        border: 1px solid #333333;
-        color: #333333;
-      }
-
-      .theme-basic .back-link a {
-        color: #333333;
-        border: 1px solid #333333;
-      }
-
-      .theme-basic .back-link a:hover {
-        background-color: #333333;
-        color: white;
-      }
-
-      .theme-modern .blog-title {
-        background: linear-gradient(45deg, #ffffff, #f0f0f0);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-      }
-
-      .theme-modern .blog-content {
-        background: rgba(255, 255, 255, 0.1);
-        backdrop-filter: blur(10px);
-        border-radius: 15px;
-      }
-
-      .theme-modern .blog-content h1,
-      .theme-modern .blog-content h2,
-      .theme-modern .blog-content h3 {
-        color: #ffffff;
-      }
-
-      .theme-modern .blog-content code {
-        background: rgba(255, 255, 255, 0.2);
-        color: #ffffff;
-      }
-
-      .theme-modern .blog-content pre {
-        background: rgba(255, 255, 255, 0.1);
-      }
-
-      .theme-modern .blog-content blockquote {
-        border-left: 3px solid #ffffff;
-        color: #f0f0f0;
-      }
-
-      .theme-modern .tag {
-        background: rgba(255, 255, 255, 0.2);
-        color: #ffffff;
-      }
-
-      .theme-modern .back-link a {
-        color: #ffffff;
-        background: rgba(255, 255, 255, 0.1);
-        backdrop-filter: blur(10px);
-      }
-
-      .theme-modern .back-link a:hover {
-        background: rgba(255, 255, 255, 0.2);
-      }
-
-      .theme-chill .blog-title {
-        border-bottom: 3px solid #5d4e75;
-        color: #5d4e75;
-        font-style: italic;
-      }
-
-      .theme-chill .blog-content {
-        border: 2px solid #5d4e75;
-        background: rgba(255, 255, 255, 0.4);
-        border-radius: 10px;
-      }
-
-      .theme-chill .blog-content h1,
-      .theme-chill .blog-content h2,
-      .theme-chill .blog-content h3 {
-        color: #5d4e75;
-      }
-
-      .theme-chill .blog-content h1 {
-        border-bottom: 1px solid #5d4e75;
-      }
-
-      .theme-chill .blog-content code {
-        background: rgba(255, 255, 255, 0.6);
-        border: 1px solid #5d4e75;
-        color: #5d4e75;
-      }
-
-      .theme-chill .blog-content pre {
-        background: rgba(255, 255, 255, 0.5);
-        border: 1px solid #5d4e75;
-      }
-
-      .theme-chill .blog-content blockquote {
-        border-left: 3px solid #5d4e75;
-        color: #8b5a3c;
-      }
-
-      .theme-chill .tags {
-        border-top: 2px solid #5d4e75;
-      }
-
-      .theme-chill .tag {
-        background: rgba(255, 255, 255, 0.5);
-        border: 1px solid #5d4e75;
-        color: #5d4e75;
-      }
-
-      .theme-chill .back-link a {
-        color: #5d4e75;
-        border: 2px solid #5d4e75;
-      }
-
-      .theme-chill .back-link a:hover {
-        background-color: #5d4e75;
-        color: #ffecd2;
+        .footer {
+          bottom: 24px;
+          left: 24px;
+        }
       }
     </style>
   </head>
   <body>
     <nav class="nav">
+      <div class="nav-logo">LC</div>
       <div class="nav-links">
-        <a href="/">&lt; HOME</a>
-        <a href="/blog">BLOG</a>
+        <a href="/">HOME</a>
+        <a href="/blog" class="active">BLOG</a>
       </div>
     </nav>
 
-    <div class="blog-header">
-      <h1 class="blog-title">{{ title }}</h1>
-      <div class="blog-meta">
-        &gt; {{ date }} | by {{ author }} {% if description %}
-        <br />&gt; {{ description }} {% endif %}
-      </div>
-    </div>
+    <main class="container">
+      <article>
+        <header class="article-header">
+          <h1 class="article-title">{{ title }}</h1>
+          <div class="article-meta">
+            {{ date }} • {{ author }}
+          </div>
+        </header>
 
-    <div class="blog-content">{{ content | safe }}</div>
+        <div class="article-content">{{ content | safe }}</div>
 
-    {% if tags %}
-    <div class="tags">
-      <strong>&gt; TAGS:</strong>
-      {% for tag in tags %}
-      <span class="tag">{{ tag }}</span>
-      {% endfor %}
-    </div>
-    {% endif %}
+        {% if tags %}
+        <div class="tags">
+          {% for tag in tags %}
+          <span class="tag">{{ tag }}</span>
+          {% endfor %}
+        </div>
+        {% endif %}
 
-    <div class="back-link">
-      <a href="/blog">&lt;&lt; BACK TO BLOG</a>
-    </div>
-
-    <script src="/static/theme-switcher.js"></script>
+        <div class="back-link">
+          <a href="/blog">← Back</a>
+        </div>
+      </article>
+    </main>
   </body>
 </html>

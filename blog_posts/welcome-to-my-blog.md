@@ -1,37 +1,33 @@
 ---
 title: "Welcome to My Blog"
-date: "2024-01-15"
+date: "2026-01-01"
 author: "Leonardo Conti"
-description: "My first blog post about AI, technology, and building the future"
-tags: ["AI", "Technology", "Startup"]
+description: "Hi, first post"
+tags: ["AI", "Technology", "Personal"]
 ---
 
-# Welcome to My Blog
+# Welcome
 
 My personal blog, I write whatever comes to my mind. No structure, no AI generated content.
 
 ## What You'll Find Here
 
-In this blog, I'll be sharing:
+I probably won't even be posting but... you may find:
 
+- **AI and Agents**: AI for coding, ideas, papers..
 - **Things about my life**: Any random idea thoughts I have insights etc.
 - **Startup AI work etc**: Some things about work AI agents, startup I'm working on.
 
-## My Mission
+## What I want to do
 
-I'm passionate about pushing the boundaries of what's possible with conversational AI. Through this blog, I hope to:
+I really just want to push boundaries with AI, today, conversational AI, how to make it seem human, have incredible capabilities.
 
-1. Share knowledge and insights with the AI community
-2. Document my startup journey and lessons learned
-3. Connect with fellow AI enthusiasts and entrepreneurs
-4. Explore the ethical implications of AI development
+## Talk to me
 
-## Stay Connected
-
-Feel free to reach out to me on [LinkedIn](https://www.linkedin.com/in/leomconti/) or [Twitter](https://x.com/leomconti1) if you'd like to discuss anything.
+Feel free to reach out to me on [LinkedIn](https://www.linkedin.com/in/leomconti/) or [Twitter](https://x.com/mosmnc) if you'd like to discuss anything.
 
 Thx, cya.
 
 ---
 
-_This is just the beginning. More exciting content coming soon! Maybe I'll start creating content on IG as well @leomconti_
+_Hopefully I actually write stuff here_
