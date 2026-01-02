@@ -10,12 +10,12 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
 _cached_posts: List[Dict[str, Any]] = []
+templates = Jinja2Templates(directory="templates")
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     global _cached_posts
-    templates = Jinja2Templates(directory="templates")
     for template_name in ["blog_list.html", "blog.html"]:
         templates.get_template(template_name)
     _cached_posts = get_blog_posts()
@@ -24,13 +24,8 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(lifespan=lifespan)
 
-# Mount static files directory
 app.mount("/static", StaticFiles(directory="static"), name="static")
-# Mount assets directory
 app.mount("/assets", StaticFiles(directory="assets"), name="assets")
-
-# Setup Jinja2 templates
-templates = Jinja2Templates(directory="templates")
 
 
 def get_blog_posts() -> List[Dict[str, Any]]:
@@ -51,7 +46,9 @@ def get_blog_posts() -> List[Dict[str, Any]]:
                 slug = filename[:-3]  # Remove .md extension
 
                 # Convert markdown to HTML
-                html_content = markdown.markdown(post.content, extensions=["codehilite", "fenced_code"])
+                html_content = markdown.markdown(
+                    post.content, extensions=["codehilite", "fenced_code"]
+                )
 
                 posts.append(
                     {
@@ -77,7 +74,9 @@ async def read_index():
 
 @app.get("/blog", response_class=HTMLResponse)
 async def blog_list(request: Request):
-    return templates.TemplateResponse("blog_list.html", {"request": request, "posts": _cached_posts})
+    return templates.TemplateResponse(
+        "blog_list.html", {"request": request, "posts": _cached_posts}
+    )
 
 
 @app.get("/blog/{slug}", response_class=HTMLResponse)
