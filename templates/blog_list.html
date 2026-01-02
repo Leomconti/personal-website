@@ -24,13 +24,23 @@
       html, body {
         height: 100%;
         overflow-x: hidden;
+        background-color: var(--black);
       }
 
       body {
         font-family: -apple-system, BlinkMacSystemFont, "SF Compact Display", "SF Pro Display", "Helvetica Neue", Helvetica, Arial, sans-serif;
-        background-color: var(--black);
         color: var(--white);
         -webkit-font-smoothing: antialiased;
+        animation: fadeIn 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+      }
+
+      main {
+        animation: fadeIn 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) 0.1s backwards;
+      }
+
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
       }
 
       .nav {
