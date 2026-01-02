@@ -1,4 +1,5 @@
 import os
+from contextlib import asynccontextmanager
 from typing import Any, Dict, List
 
 import frontmatter
@@ -8,7 +9,20 @@ from fastapi.responses import FileResponse, HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
-app = FastAPI()
+_cached_posts: List[Dict[str, Any]] = []
+
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    global _cached_posts
+    templates = Jinja2Templates(directory="templates")
+    for template_name in ["blog_list.html", "blog.html"]:
+        templates.get_template(template_name)
+    _cached_posts = get_blog_posts()
+    yield
+
+
+app = FastAPI(lifespan=lifespan)
 
 # Mount static files directory
 app.mount("/static", StaticFiles(directory="static"), name="static")
@@ -63,14 +77,12 @@ async def read_index():
 
 @app.get("/blog", response_class=HTMLResponse)
 async def blog_list(request: Request):
-    posts = get_blog_posts()
-    return templates.TemplateResponse("blog_list.html", {"request": request, "posts": posts})
+    return templates.TemplateResponse("blog_list.html", {"request": request, "posts": _cached_posts})
 
 
 @app.get("/blog/{slug}", response_class=HTMLResponse)
 async def blog_post(request: Request, slug: str):
-    posts = get_blog_posts()
-    post = next((p for p in posts if p["slug"] == slug), None)
+    post = next((p for p in _cached_posts if p["slug"] == slug), None)
 
     if not post:
         raise HTTPException(status_code=404, detail="Blog post not found")
