@@ -37,9 +37,7 @@ def get_blog_posts() -> List[Dict[str, Any]]:
                 slug = filename[:-3]  # Remove .md extension
 
                 # Convert markdown to HTML
-                html_content = markdown.markdown(
-                    post.content, extensions=["codehilite", "fenced_code"]
-                )
+                html_content = markdown.markdown(post.content, extensions=["codehilite", "fenced_code"])
 
                 posts.append(
                     {
@@ -63,17 +61,10 @@ async def read_index():
     return FileResponse("static/index.html")
 
 
-@app.get("/test-themes")
-async def test_themes():
-    return FileResponse("static/test-themes.html")
-
-
 @app.get("/blog", response_class=HTMLResponse)
 async def blog_list(request: Request):
     posts = get_blog_posts()
-    return templates.TemplateResponse(
-        "blog_list.html", {"request": request, "posts": posts}
-    )
+    return templates.TemplateResponse("blog_list.html", {"request": request, "posts": posts})
 
 
 @app.get("/blog/{slug}", response_class=HTMLResponse)
